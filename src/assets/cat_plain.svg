@@ -1,0 +1,34 @@
+<!-- This is a cool cat -->
+<!-- author: me - stdpi -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xml:space="preserve"
+  viewBox="0 0 68 68"
+>
+  <defs>
+    <linearGradient id="a">
+      <stop offset="0" stop-color="#f11c1c" />
+      <stop offset="1" stop-color="#f4a587" />
+    </linearGradient>
+    <linearGradient
+      xlink:href="#a"
+      id="b"
+      x1="78.1"
+      x2="61.2"
+      y1="189"
+      y2="162"
+      gradientTransform="translate(173 -95) scale(1.53782)"
+      gradientUnits="userSpaceOnUse"
+    />
+  </defs>
+  <path
+    fill="url(#b)"
+    stroke="#000"
+    stroke-linecap="square"
+    stroke-width=".5"
+    d="M285 137c-4 0-9 11-10 13-15-2-24 11-23 21-2 3-4 5-4 9-1 18 33 10 43 20 9-7 14-21 7-34 3-16-7-29-13-29z"
+    transform="translate(-241 -135)"
+  />
+</svg>

@@ -1,0 +1,48 @@
+---
+import Master from "./master.astro";
+import type { ArticleProps } from "../core/frontmatter";
+
+type Props = ArticleProps & {};
+
+const { title, date, brief } = Astro.props.frontmatter;
+---
+
+<Master
+  page="rand"
+  meta={{
+    title,
+    meta: brief,
+  }}
+>
+  <article>
+    <h1 class="title">{title}</h1>
+    <slot />
+  </article>
+</Master>
+
+<style lang="sass">
+  article
+    text-align: left
+    padding: 0.5rem 3rem
+    &>h1
+      margin-top: 0
+      margin-bottom: 0.1em
+      &.title
+        font-size: 2em
+</style>
+<style lang="sass" is:global>
+  @import ../styles/style.sass
+  // article
+  //   a
+  //     &::before
+  //       content: url("../hyperli.svg")
+  //       display: inline-block
+  //       width: 15px
+  //       height: 15px
+  //       margin-right: 5px
+  //       &>img
+  //         height: 10px
+  .astro-code, blockquote
+    padding: 0.8em 1em
+    @extend .tint
+</style>

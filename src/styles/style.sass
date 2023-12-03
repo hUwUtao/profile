@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Varela+Round&display=swap')
+@import bootstrap-icons/font/bootstrap-icons.scss
+
+@import ./bg.scss
+
+.mono, code
+  font-family: 'JetBrains Mono', monospace
+.brands
+  &[data-m="fb"]
+    --b: #4267B2
+  &[data-m="re"]
+    --b: #ff4500
+  &[data-m="gh"]
+    --b: #333
+
+.tint
+  border: 2px solid #ffffff
+  transition: box-shadow 64ms ease-in-out
+  --a: 10px
+  --b: calc(var(--a) / 2)
+  --c: #0008
+  box-shadow: var(--a) var(--a) 0px 2px var(--c), var(--b) var(--b) 0px 2px var(--c) inset
+  &:hover
+    --a: 15px

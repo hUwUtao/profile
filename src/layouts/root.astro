@@ -1,0 +1,67 @@
+---
+import Favicon from "../components/favicon.astro";
+import "../styles/style.sass";
+
+type Props = {
+  title?: string;
+  meta?: string;
+};
+
+export type P = Props;
+
+const { title, meta } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <Favicon />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://esm.sh" />
+    <title>{title ? `@stdpi - ${title}` : "i am @stdpi"}</title>
+    <meta
+      name="description"
+      content={meta || "random software engineer, or a tech enthusiasts"}
+    />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <slot />
+    {
+      import.meta.env.PROD && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({
+            token: "982392cc0c7040f8a416accf8ecb2008",
+          })}
+        />
+      )
+    }
+    <style lang="sass" is:global>
+      body
+        margin: 0
+        width: 100%
+        min-height: 100vh
+        display: flex
+        align-items: center
+        justify-content: center
+      *
+        -webkit-box-sizing: border-box
+        box-sizing: border-box
+      a
+        color: #fff
+        text-decoration: #f00 wavy underline
+        transition: text-decoration-color 128ms ease-in-out
+        &:hover
+          text-decoration-color: #fff
+    </style>
+    <style>
+      body {
+        background: #000;
+      }
+    </style>
+  </body>
+</html>

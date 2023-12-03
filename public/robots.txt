@@ -1,0 +1,4 @@
+# very blatant
+
+User-agent: GPTBot
+Disallow: /

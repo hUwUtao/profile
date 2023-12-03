@@ -1,0 +1,80 @@
+// @-webkit-keyframes bg-scrolling-reverse {
+//   100% {
+//     background-position: var(--s) var(--s);
+//   }
+// }
+
+// @-moz-keyframes bg-scrolling-reverse {
+//   100% {
+//     background-position: var(--s) var(--s);
+//   }
+// }
+
+// @-o-keyframes bg-scrolling-reverse {
+//   100% {
+//     background-position: var(--s) var(--s);
+//   }
+// }
+
+@keyframes scr {
+  100% {
+    background-position: var(--s) var(--s);
+  }
+}
+
+// @-webkit-keyframes bg-scrolling {
+//   0% {
+//     background-position: var(--s) var(--s);
+//   }
+// }
+
+// @-moz-keyframes bg-scrolling {
+//   0% {
+//     background-position: var(--s) var(--s);
+//   }
+// }
+
+// @-o-keyframes bg-scrolling {
+//   0% {
+//     background-position: var(--s) var(--s);
+//   }
+// }
+
+// @keyframes bg-scrolling {
+//   0% {
+//     background-position: var(--s) var(--s);
+//   }
+// }
+
+/* Main styles */
+
+body {
+  // margin-top: 13.5rem;
+  // color: #999;
+  // font: 400 16px/1.5 exo, ubuntu, "segoe ui", helvetica, arial, sans-serif;
+  // text-align: center;
+
+  /* img size is 50x50 */
+  --s: 64px;
+  background-color: #222;
+  opacity: 1;
+  background-image: radial-gradient(#333 2px, #0008 2px);
+  background-size: var(--s) var(--s);
+
+  // -webkit-animation: bg-scrolling-reverse 0.92s infinite;
+  // -moz-animation: bg-scrolling-reverse 0.92s infinite;
+  // -o-animation: bg-scrolling-reverse 0.92s infinite;
+  animation: scr 0.92s infinite;
+
+  // -webkit-animation-timing-function: linear;
+  // -moz-animation-timing-function: linear;
+  // -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+
+  // &::before {
+  //   content: "INFINITY";
+  //   font-size: 8rem;
+  //   font-weight: 100;
+  //   font-style: normal;
+  // }
+}

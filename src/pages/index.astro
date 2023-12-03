@@ -1,0 +1,125 @@
+---
+import Master from "../layouts/master.astro";
+---
+
+<Master page="abt">
+  <section>
+    <img alt="stdpi" src="https://stdpi.ftp.sh/scrshot/23/11/zst.png" />
+  </section>
+  <figcaption>
+    <h3>@stdpi</h3>
+    <h5>aka @huwutao, random mind in the wild</h5>
+    <p>
+      Failure was never an <code>{"Option<T>"}</code> but <code
+        >{"Result<T, E>"}</code
+      >
+    </p>
+    <div class="icons">
+      {
+        [
+          {
+            plat: "facebook",
+            m: "fb",
+            ref: "https://fb.me/huwutao",
+          },
+          {
+            plat: "reddit",
+            m: "re",
+            ref: "https://reddit.com/u/huwutao",
+          },
+          {
+            plat: "github",
+            m: "gh",
+            ref: "https://github.com/huwutao",
+          },
+        ].map((a) => (
+          <a href={a.ref} data-m={a.m} target="_blank">
+            <i class={"bi bi-" + a.plat}>{a.plat}</i>
+          </a>
+        ))
+      }
+    </div>
+  </figcaption>
+  <div class="end">
+    <a href="https://github.com/hUwUtao/profile"
+      ><i class="bi bi-github"></i> Source</a>
+  </div>
+</Master>
+
+<style lang="sass">
+  @import ../styles/style.sass
+
+  section
+    padding: 6% 10% 0
+    &>img
+      aspect-ratio: 1
+      max-width: 100%
+      vertical-align: top
+      position: relative
+      border-radius: 1%
+      --a: 8px
+      --w: calc(50% - var(--a))
+      max-width: var(--w)
+      max-height: var(--w)
+      padding: calc(var(--a) - 4px)
+      border: 2px solid #ffffff
+      border-radius: 50%
+
+  figcaption
+    padding: 5% 10% 0
+    h3
+      font-size: 25px
+      font-weight: 400
+      line-height: 24px
+      margin: 3px 0
+
+    h5
+      font-weight: 400
+      font-size: 10px
+      margin: 3px
+      letter-spacing: 1px
+
+    &>.icons
+      display: flex
+      flex-direction: column
+      a
+        width: 100%
+        border: 1px solid var(--b)
+        margin-bottom: 0.5em
+        --s: #0000
+        --s2: #000f
+        box-shadow: 4px 4px 0px 2px var(--s), 0 0 0px 2px var(--s2) inset
+        transition: box-shadow 32ms ease-in-out, background 64ms ease-in-out
+        text-decoration: none
+        padding: 0.3em 0
+        @extend .brands
+        &:hover
+          background: var(--b)
+          --s: #000f
+          --s2: #0000
+        i
+          display: flex
+          align-items: center
+          justify-content: space-between
+          color: #fff
+          font-size: 1.1em
+          font-style: normal
+          text-decoration: inherit
+          margin-right: 35%
+          @extend .mono
+          &:before
+            margin-left: 45%
+            font-size: 1em
+            padding-right: 8px
+          // &:hover
+          //   color: #fff
+
+  .end
+    margin-bottom: 10px
+    &>a
+      color: #ddd
+      font-size: 10px
+      text-decoration: none
+      &>i
+        margin-right: 2px
+</style>

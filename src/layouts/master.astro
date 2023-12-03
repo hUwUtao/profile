@@ -1,0 +1,68 @@
+---
+import Toggler from "../components/toggle";
+import Root, { type P } from "./root.astro";
+
+type Pages = "abt" | "rand";
+
+export interface Props {
+  page: Pages;
+  meta?: P;
+}
+
+function isPg(pg: Pages) {
+  return {
+    "data-up": pg === Astro.props.page ? "yes" : undefined,
+  };
+}
+---
+
+<Root {...Astro.props.meta || {}}>
+  <script src="../core/entry.ts"></script>
+  <figure class:list={[{ cap: Astro.props.page == "abt" }]}>
+    <ul>
+      <li><a href="/" {...isPg("abt")}>abt</a></li>
+      <li><a href="/posts" {...isPg("rand")}>posts</a></li>
+      <li><Toggler client:load /></li>
+    </ul>
+    <slot />
+  </figure>
+</Root>
+
+<style lang="sass">
+  @import ../styles/style.sass
+  figure
+    font-family: 'Varela Round', sans-serif
+    position: relative
+    display: inline-block
+    overflow: overlay
+    margin: 10px
+    min-width: 250px
+    width: 100%
+    background-color: #111213cf
+    color: #fff
+    text-align: center
+    font-size: 16px
+    max-width: 50vw
+    @extend .tint
+    @media (max-width:1280px)
+      max-width: 90vw
+    &.cap
+      max-width: 320px
+    &>ul
+      display: flex
+      justify-content: space-evenly
+      padding: 0 10%
+      &>li
+        list-style-type: none
+        &>a
+          color: #fff
+          text-decoration: none
+          text-decoration-color: #000
+          transition: text-decoration 128ms ease-in-out
+          &[data-up]
+            text-decoration: green wavy underline
+          &[data-mt]
+            text-decoration: red wavy line-through
+          &:not(&[data-mt]):hover
+            text-decoration: red wavy underline
+</style>
