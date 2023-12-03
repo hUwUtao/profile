@@ -1,7 +1,7 @@
-import { createStorage, type StorageProperties } from "./lib/create-storage";
+import { type StorageProperties, createStorage } from "./lib/create-storage";
 
 // borrowed from mantine
 
 export function useLocalStorage<T = string>(props: StorageProperties<T>) {
-  return createStorage<T>("localStorage", "use-local-storage")(props);
+	return createStorage<T>("localStorage", "use-local-storage")(props);
 }
