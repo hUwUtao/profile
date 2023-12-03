@@ -1,0 +1,45 @@
+# Sample workflow for building and deploying an Astro site to GitHub Pages
+#
+# To get started with Astro see: https://docs.astro.build/en/getting-started/
+#
+name: Deploy to Cloudflare
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  deployments: write
+
+env:
+  PROJECT_NAME: "stdpi"
+  BUILD_PATH: "."
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          run_install: true
+      - name: Build
+        run: pnpm build
+        working-directory: ${{ env.BUILD_PATH }}
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ID }}
+          projectName: ${{ env.PROJECT_NAME }}
+          directory: ${{ env.BUILD_PATH }}/dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
