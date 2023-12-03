@@ -35,6 +35,9 @@ jobs:
       - name: Build
         run: pnpm build
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Get branch name
+        id: things
+        run: echo ::set-output name=ref::${GITHUB_REF#refs/*/}
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
@@ -44,4 +47,4 @@ jobs:
           directory: ${{ env.BUILD_PATH }}/dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           # wth?
-          # branch: main
+          branch: ${{ github.ref == 'refs/heads/main' && 'production' || steps.things.outputs.ref }}
