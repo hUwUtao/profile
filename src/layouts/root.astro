@@ -1,15 +1,18 @@
 ---
+import { ViewTransitions } from "astro:transitions";
+
 import Favicon from "../components/favicon.astro";
 import "../styles/style.sass";
 
 type Props = {
   title?: string;
   meta?: string;
+  keyw?: string[];
 };
 
 export type P = Props;
 
-const { title, meta } = Astro.props;
+const { title, meta, keyw } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,6 +21,7 @@ const { title, meta } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <Favicon />
+    <ViewTransitions />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://esm.sh" />
     <title>{title ? `@stdpi - ${title}` : "i am @stdpi"}</title>
@@ -26,6 +30,10 @@ const { title, meta } = Astro.props;
       content={meta || "random software engineer, or a tech enthusiasts"}
     />
     <meta name="generator" content={Astro.generator} />
+    <meta
+      name="keyword"
+      content={["stdpi huwutao dev".split(" "), ...(keyw || [])].join(", ")}
+    />
   </head>
   <body>
     <slot />
