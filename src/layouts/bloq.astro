@@ -4,7 +4,7 @@ import type { ArticleProps } from "../core/frontmatter";
 
 type Props = ArticleProps & {};
 
-const { title, date, brief } = Astro.props.frontmatter;
+const { title, date, brief, keywords } = Astro.props.frontmatter;
 ---
 
 <Master
@@ -16,6 +16,7 @@ const { title, date, brief } = Astro.props.frontmatter;
 >
   <article>
     <h1 class="title">{title}</h1>
+    <sub>{date}</sub>
     <slot />
   </article>
 </Master>

@@ -17,7 +17,7 @@ function isPg(pg: Pages) {
 ---
 
 <Root {...Astro.props.meta || {}}>
-  <script src="../core/entry.ts" transition:name="entry_script"></script>
+  <script src="../core/entry.ts"></script>
   <figure class:list={[{ cap: Astro.props.page == "abt" }]}>
     <ul>
       <li><a href="/" {...isPg("abt")}>abt</a></li>
