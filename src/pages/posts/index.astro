@@ -8,7 +8,7 @@ const allPosts = await Astro.glob<FrontmatterProps>("./*/*.mdx");
 
 <Master page="rand">
   {
-    allPosts.map(({ frontmatter: { title, brief }, url }) => (
+    allPosts.reverse().map(({ frontmatter: { title, brief }, url }) => (
       <a href={url}>
         <img {...pen} />
         <span>

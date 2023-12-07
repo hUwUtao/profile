@@ -17,12 +17,14 @@ function isPg(pg: Pages) {
 ---
 
 <Root {...Astro.props.meta || {}}>
-  <script src="../core/entry.ts"></script>
+  <script src="../core/entry.ts" transition:name="entry_script"></script>
   <figure class:list={[{ cap: Astro.props.page == "abt" }]}>
     <ul>
       <li><a href="/" {...isPg("abt")}>abt</a></li>
       <li><a href="/posts" {...isPg("rand")}>posts</a></li>
-      <li><Toggler client:load /></li>
+      <li>
+        <Toggler client:load transition:persist transition:name="nav_pt" />
+      </li>
     </ul>
     <slot />
   </figure>
