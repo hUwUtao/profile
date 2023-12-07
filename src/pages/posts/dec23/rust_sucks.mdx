@@ -1,0 +1,90 @@
+---
+layout: "/src/layouts/bloq.astro"
+title: "Rust's good"
+date: "01/12/2023"
+brief: "Someone not really happy with the satisfication of safety"
+keywords: "rust"
+---
+
+## Or it is?
+
+> here come [the sorce](https://sissoftwarefactory.com/blog/why-rust-is-stopping-your-success-use-c-and-c-instead/)
+
+## A bandage over the bullethole
+
+The short answer is `Arc`. While you feel like GCs, you might want the "reference counter" from nim lang.
+
+Since mine very beginning days of rust, so here is the pattern, which is more cool than php cgi by doing connection every web request:
+
+```rust
+// pseudo code ahead
+// zero borrow, or is it?
+// and please imagine this work, for demonstration purpose. really, rusty rust
+
+struct What {
+  db: CoolDatabaseInterface
+}
+
+fn main() {
+  let states = Arc::new(
+    What {
+      db: CoolDatabaseInterface::new()
+    }
+  );
+  // imagine a new thread. so common web frameworks
+  async move {
+    let use_it = states.clone();
+  }
+}
+```
+
+More damn crazy? `Mutex` also your choice. Too lazy to do it, but the code above proof the use.
+
+## Why rust not sucks yet
+
+### Ecosystem
+
+> The Fact: Massive user bases, extensive libraries, and heaps of resources. Got a problem? A quick Google search usually has you covered. Rust? Not quite there yet.
+
+There are enough of stuff you can do. The idea of high-level-languages: you don't really aware outside the box, while the native languages do the most for you.
+
+About natives, while the high level only do most of the part in the box (does not count when you do the natives). At this level, the intergeration between the natives is just the problem of us. You usually DON'T search Google at this level, and the error, just in case you don't figure out.
+
+Though rust community have a decent growth, why the community is such an important factor though, opinion: more dependent, less productive.
+
+### It works!
+
+> At the end of the day, the market wants something that works. Languages like C#, JavaScript and Python have a long track record of working well in a variety of domains, from game development to backends and to user interfaces.
+
+Oh yes just use the one that works, and rust is an option that barely working so.
+
+Ive complained about the matter of dependencies one, Neo4J? That time I just depend on things. After all, the issue is resolved. What so matter is we depend on such tools, likely no funds/goods for the developer, and they do it voluntary.
+
+## Conclusion
+
+What really made this hard, is we inflict business logic on ourself. Afterall, you make code which works, and don't work productive, work productive perfectly. 
+
+The satisfication of hobbyist software engineering is making it perfect, and though, CS research won't limit you into a neat logic but creative ways to do with the stuff we all use.
+
+Those are just opinions afterall, I'm a moron though.
+
+#### A(nother) working example of "maybe it sucks" compilable example
+
+```rust
+struct Damn {
+  a: String
+}
+
+fn main() {
+  let x = std::sync::Arc::new(
+    Damn {
+      a: "Yes".to_string()
+    }
+  );
+
+  async move {
+    let inside = x.clone();
+    print!("{}", inside.a);
+  };
+}
+```
