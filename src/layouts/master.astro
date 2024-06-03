@@ -1,5 +1,5 @@
 ---
-import Toggler from "../components/toggle";
+// import Toggler from "../components/toggle";
 import Root, { type P } from "./root.astro";
 
 type Pages = "abt" | "rand";
@@ -22,9 +22,9 @@ function isPg(pg: Pages) {
     <ul>
       <li><a href="/" {...isPg("abt")}>abt</a></li>
       <li><a href="/posts" {...isPg("rand")}>posts</a></li>
-      <li>
+      <!-- <li>
         <Toggler client:load transition:persist transition:name="nav_pt" />
-      </li>
+      </li> -->
     </ul>
     <slot />
   </figure>
