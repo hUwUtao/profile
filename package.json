@@ -9,7 +9,7 @@
   "scripts": {
     "test": "vitest",
     "dev": "astro dev",
-    "build": "cross-env NODE_OPTIONS=\"--experimental-network-imports\" astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "launch": "wrangler pages deploy dist",
     "fmt": "biome format . --write",
@@ -17,25 +17,26 @@
     "chk": "biome check . --apply"
   },
   "devDependencies": {
-    "@astrojs/ts-plugin": "^1.3.1",
+    "@astrojs/ts-plugin": "^1.10.4",
     "@biomejs/biome": "1.4.1",
     "@types/canvas-confetti": "^1.6.4",
-    "@types/react": "^18.2.42",
-    "@types/react-dom": "^18.2.17",
-    "astro": "^4.0.3",
-    "astro-compress": "^2.2.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "astro": "^4.16.10",
+    "astro-compress": "^2.3.5",
     "cross-env": "^7.0.3",
-    "sass": "^1.69.5",
-    "typescript": "^5.3.3",
-    "vitest": "^1.0.2"
+    "sass": "^1.80.6",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
   },
   "dependencies": {
-    "@astrojs/mdx": "^2.0.0",
-    "@astrojs/react": "^3.0.7",
-    "bootstrap-icons": "^1.11.2",
-    "canvas-confetti": "^1.9.2",
+    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/react": "^3.6.2",
+    "bootstrap-icons": "^1.11.3",
+    "canvas-confetti": "^1.9.3",
     "pixelarticons": "^1.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.5"
   }
 }
