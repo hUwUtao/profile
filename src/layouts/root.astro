@@ -22,8 +22,12 @@ const { title, meta, keyw } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <Favicon />
     <!-- <ViewTransitions /> -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://cdn.stdpi.work" />
     <link rel="preconnect" href="https://esm.sh" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.stdpi.work/assets/fonts/departuremono/stylesheet.css"
+    />
     <title>{title ? `@stdpi - ${title}` : "i am @stdpi"}</title>
     <meta
       name="description"

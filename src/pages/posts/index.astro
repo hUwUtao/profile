@@ -1,7 +1,8 @@
 ---
 import Master from "../../layouts/master.astro";
 import type { FrontmatterProps } from "../../core/frontmatter";
-import pen from "../../assets/pen.svg";
+import { Image } from "astro:assets";
+import articleIcon from "pixelarticons/svg/article.svg";
 
 const allPosts = await Astro.glob<FrontmatterProps>("./*/*.mdx");
 ---
@@ -10,7 +11,13 @@ const allPosts = await Astro.glob<FrontmatterProps>("./*/*.mdx");
   {
     allPosts.reverse().map(({ frontmatter: { title, brief }, url }) => (
       <a href={url}>
-        <img {...pen} />
+        <Image
+          src={articleIcon}
+          alt=""
+          width={24}
+          height={24}
+          style="filter: invert(1)"
+        />
         <span>
           <h2>{title}</h2>
           <span>{brief}</span>

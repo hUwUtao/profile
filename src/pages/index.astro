@@ -1,10 +1,20 @@
 ---
 import Master from "../layouts/master.astro";
+import { Image } from "astro:assets";
+import iconBsky from "pixelarticons/svg/debug.svg";
+import iconX from "pixelarticons/svg/close.svg";
+import iconGh from "pixelarticons/svg/github.svg";
 ---
 
 <Master page="abt">
   <section>
-    <img alt="stdpi" src="https://cdn.stdpi.work/assets/img/cat_monokai_res_v1/cat_monokai_ico_web.svg" />
+    {
+      /* <img
+      alt="stdpi"
+      src="https://cdn.stdpi.work/assets/img/cat_monokai_res_v1/cat_monokai_ico_web.svg"
+    /> */
+    }
+    <img alt="avatar" src="https://avatars.githubusercontent.com/u/32933514" />
   </section>
   <figcaption>
     <h3>@stdpi</h3>
@@ -18,31 +28,36 @@ import Master from "../layouts/master.astro";
       {
         [
           {
-            plat: "facebook",
-            m: "fb",
-            ref: "https://fb.me/huwutao",
+            icon: iconBsky,
+            m: "bs",
+            ref: "https://bsky.app/profile/stdpi.work",
+            name: "bluesky",
           },
           {
-            plat: "reddit",
-            m: "re",
-            ref: "https://reddit.com/u/huwutao",
+            icon: iconX,
+            m: "tw",
+            ref: "https://twitter.com/stdpipe",
+            name: "aka twitter",
           },
           {
-            plat: "github",
+            icon: iconGh,
             m: "gh",
             ref: "https://github.com/huwutao",
+            name: "github",
           },
         ].map((a) => (
           <a href={a.ref} data-m={a.m} target="_blank">
-            <i class={"bi bi-" + a.plat}>{a.plat}</i>
+            <Image src={a.icon} alt={a.name} width={16} height={16} />
+            <span>{a.name}</span>
           </a>
         ))
       }
     </div>
   </figcaption>
   <div class="end">
-    <a href="https://github.com/hUwUtao/profile"
-      ><i class="bi bi-github"></i> Source</a>
+    <a href="https://github.com/hUwUtao/profile">
+      <Image src={iconGh} alt="Source" width={12} height={12} /> Source
+    </a>
   </div>
 </Master>
 
@@ -93,33 +108,31 @@ import Master from "../layouts/master.astro";
         text-decoration: none
         padding: 0.3em 0
         @extend .brands
+        display: flex
+        align-items: center
+        justify-content: center
+        gap: 8px
         &:hover
           background: var(--b)
           --s: #000f
           --s2: #0000
-        i
-          display: flex
-          align-items: center
-          justify-content: space-between
-          color: #fff
-          font-size: 1.1em
-          font-style: normal
-          text-decoration: inherit
-          margin-right: 35%
+        img
+          filter: invert(1)
+        span
           @extend .mono
-          &:before
-            margin-left: 45%
-            font-size: 1em
-            padding-right: 8px
-          // &:hover
-          //   color: #fff
+          margin-right: 1em
 
   .end
     margin-bottom: 10px
+    display: flex
+    justify-content: center
     &>a
       color: #ddd
       font-size: 10px
       text-decoration: none
-      &>i
-        margin-right: 2px
+      display: flex
+      align-items: center
+      gap: 4px
+      img
+        filter: invert(1)
 </style>

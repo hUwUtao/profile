@@ -1,15 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Varela+Round&display=swap')
-@import url('https://esm.sh/bootstrap-icons@1/font/bootstrap-icons.css')
+// @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Varela+Round&display=swap')
+// @import url('https://esm.sh/bootstrap-icons@1/font/bootstrap-icons.css') */
+
 
 @import './bg.scss'
 
+*
+  font-family: 'Departure Mono', sans-serif
+
 .mono, code
-  font-family: 'JetBrains Mono', monospace
+  font-family: 'Departure Mono', monospace
 .brands
-  &[data-m="fb"]
-    --b: #4267B2
-  &[data-m="re"]
-    --b: #ff4500
+  &[data-m="bs"]
+    --b: #0085ff
+  &[data-m="tw"]
+    --b: #ffffff
+    &:hover
+      --b: #000000
   &[data-m="gh"]
     --b: #333
 
@@ -17,7 +23,7 @@
   border: 2px solid #ffffff
   transition: box-shadow 64ms ease-in-out
   --a: 10px
-  --b: calc(var(--a) / 2)
+  --b: calc(var(--a) / 2)  
   --c: #0008
   box-shadow: var(--a) var(--a) 0px 2px var(--c), var(--b) var(--b) 0px 2px var(--c) inset
   &:hover
