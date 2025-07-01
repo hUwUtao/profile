@@ -1,0 +1,73 @@
+---
+layout: "/src/layouts/bloq.astro"
+title: "Snatch Godot key, the right way"
+date: "02/07/2024"
+brief: "definitelly not a tutorial to dump games"
+keywords: "godot, game dump, key extract"
+---
+
+I have a big love with a sport called "game extraction". Assets are not going anywhere, but for preservation and study of myself, assets extraction is a hobby that I will never miss.
+
+You will need some `C` knowledges, binary and a simple idea on how compiler works on branch optimization.
+
+> Side note: I have possibly done many copyright infringement while owning the clear source dump of the game.
+> Sorry S**A
+
+### 1. Godot engine
+
+Godot engine is a multiplatform game engine, thus it have cross-compile toolchains, despite this OP has no idea which one, having knowledge of the computer prone a bit useful.
+
+Starting from Godot 3.1+ (backported) and Godot 4.0+, they implemented script encryption. Pack encryption are from GD4.0, but maybe it will be my next nemesis. This guide aims on Godot 3.1 with only script encryption.
+
+To break something, you need your toolchain. Luckily, [GDSDecomp](https://github.com/GDRETools/gdsdecomp) is come at granted, with preimplemented package, assets readings and project reconstruction.
+
+After a bit decompilation, the tool tells me that the project is *probably* Godot 3.5.
+
+### 2. The native
+
+I targeted a game on Android, which have a native output for armv8a and armv7l. Again, you need a toolchain, but for newbie, advanced one like Ghidra will prone useful. Atleast know where the reference to jump to.
+Also, Ghidra support most arch, including armv8a.
+
+- You will need to decompile either the main `exe` or `libgodot*.so`, only one arch is needed.
+- GD3.1+ backport: you need to jump to string `GDScript::load_byte_code`
+  - Jump to the only function that reference the string. If you have issue on other decompiler, take the address and search it in the assembly
+  - On Ghidra or anywhere generate `C`: find the &DAT_xxx[] reference right up to the GDScript debug function call.
+- GD4.0+: (Check this tutorial, it have more up-to-date signatures and build toolchain)[https://www.youtube.com/watch?v=fWjuFmYGoSY]
+
+### What?
+
+> This step require to clone (or download) the right version of Godot to explore. Remember, the extractor tool hinted the version the project was made of.
+
+Knowing that all version of Godot use `C` constant `script_encryption_key`, it is a 32 byte length byte-array added during build. However, you cannot find it like a string, as it is byte,
+and you also cannot find it by actual variable initialization, since the compiler optimize it as actual static part of the program.
+
+First, needing to know where the key is used. Luckily, the constant is rarely used, and the engine code is populated with various debug string. A \[static] string reference near the access can leak the presence of constant address.
+
+For example, 3.5 have the `GDScript::load_byte_code` actually using the key. A debug function leaked the function name its belong, and the file its belong. It is obvious that this function has a string reference presence, so finding the address within the asm is easily done.
+
+After reaching near the constant access, the reference can be found within the scope of the function. It is exactly a few lines and parameter inbetween, but it is likely the same as the `C` codebase.
+
+However, a compiler can inline the code (for good deed optimization), leading to various instruction resemble another function outside the current scope or namespace. A branch inbetween can keep the instruction away from the string, meaning that even within same function, it is pretty confusing and hard to find the constant key reference.
+
+### Mitigation with optimization
+
+After wasting **SIX HOUR** of name mapping, source code side to side check, I just found that I referenced the wrong version of the source code. The branch is missing, but I traversally found a confusing way to hide some branch away from the string easily:
+
+- A complex branching in within can even force the compiler to split into an independent function or a label ("LAB_xxx", hello please someone lmk if this actually armv8a thing?)
+- A negative branching can nest the whole code in within a so-flipped branch order, even in-side-out
+- A really big function block can be wrapped in within (perhaps branch pred?)
+
+This might keep away string from the access without compromising too much code clarity.
+
+There is another tactic I used before. It involving obscurity, and it is JSF*ck, a transformation always result in a few set of character and repeated value for a javascript constant. The key could be generated without leaving a constant in the stub, leading to harder execution or simulation done to achieve the key.
+
+### Finale
+
+Deassembly to find encryption code is not something new, but it is hardly practiced. Game protection may affect performance vary, based on its complexity and protection mechanism. 
+However, maybe it was unnecessary to have it, since what if some one want to just see "behind the scene"? This even powering good culture like modding, fan filmmaking, etc.
+Although, some environment like competitive games may prone needing for obfuscation to keeps its intergerity.
+
+#### Case study
+
+- Source(2) games
+- m\*im\*iDX (omg please add obfuscation really)
