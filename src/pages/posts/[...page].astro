@@ -1,9 +1,8 @@
 ---
 import type { FrontmatterProps } from "../../core/frontmatter";
-import { getOgImagePath } from "../../core/og";
+import { Image } from "astro:assets";
 import Master from "../../layouts/master.astro";
-
-const PAGE_SIZE = 5;
+import articleIcon from "pixelarticons/svg/article.svg";
 
 export function getStaticPaths({ paginate }) {
 	const pageSize = 5;
@@ -35,12 +34,12 @@ const pageMeta = isFirst
   {
     page.data.map(({ frontmatter: { title, brief }, url }) => (
       <a href={url} class="post-card">
-        <img
-          src={getOgImagePath(url || "/posts")}
-          alt={`${title} preview`}
-          width="132"
-          height="72"
-          loading="lazy"
+        <Image
+          src={articleIcon}
+          alt=""
+          width={24}
+          height={24}
+          style="filter: invert(1)"
         />
         <span>
           <h2>{title}</h2>
@@ -81,10 +80,6 @@ const pageMeta = isFirst
       --s: #000f
       --s2: #0000
     img
-      width: 132px
-      height: 72px
-      object-fit: cover
-      border: 1px solid #fff6
       flex-shrink: 0
     &>*
       text-align: left
