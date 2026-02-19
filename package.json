@@ -13,8 +13,8 @@
 	"scripts": {
 		"test": "vitest",
 		"dev": "astro dev",
-    "build": "node ./scripts/generate-og.mjs && astro build",
-		"gen:og": "node ./scripts/generate-og.mjs",
+		"build": "bun ./scripts/generate-og.tsx && astro build",
+		"gen:og": "bun ./scripts/generate-og.tsx",
 		"preview": "astro preview",
 		"launch": "wrangler deploy",
 		"preview:workers": "wrangler dev",
