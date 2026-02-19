@@ -1,11 +1,12 @@
 {
 	"$schema": "https://raw.githubusercontent.com/biomejs/biome/main/packages/%40biomejs/biome/configuration_schema.json",
+	"files": {
+		"includes": ["**", "!.astro", "!node_modules", "!public", "!dist"]
+	},
 	"formatter": {
-		"ignore": ["node_modules", "public", "dist"],
 		"lineEnding": "lf"
 	},
 	"linter": {
-		"ignore": ["node_modules", "public", "dist"],
 		"rules": {
 			"a11y": {
 				"useButtonType": "off"

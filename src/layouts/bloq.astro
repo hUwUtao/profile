@@ -1,10 +1,21 @@
 ---
-import Master from "./master.astro";
 import type { ArticleProps } from "../core/frontmatter";
+import Master from "./master.astro";
 
 type Props = ArticleProps & {};
 
-const { title, date, brief, keywords } = Astro.props.frontmatter;
+const { title, date, dateIso, brief, keywords } = Astro.props.frontmatter;
+
+function dateToIso(d: string) {
+	const parts = d.split("/");
+	if (parts.length === 3) {
+		const [day, month, year] = parts.map((n) => n.padStart(2, "0"));
+		return `${year}-${month}-${day}`;
+	}
+	return d;
+}
+
+const machineDate = dateIso || dateToIso(date);
 ---
 
 <Master
@@ -12,11 +23,13 @@ const { title, date, brief, keywords } = Astro.props.frontmatter;
   meta={{
     title,
     meta: brief,
+    keyw: keywords.split(",").map((keyword) => keyword.trim()),
+    ogType: "article",
   }}
 >
   <article>
     <h1 class="title">{title}</h1>
-    <sub>{date}</sub>
+    <time datetime={machineDate}>{date}</time>
     <slot />
   </article>
 </Master>

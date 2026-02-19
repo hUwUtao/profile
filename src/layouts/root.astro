@@ -2,17 +2,27 @@
 import { ViewTransitions } from "astro:transitions";
 
 import Favicon from "../components/favicon.astro";
+import { getOgImagePath } from "../core/og";
 import "../styles/style.sass";
 
 type Props = {
-  title?: string;
-  meta?: string;
-  keyw?: string[];
+	title?: string;
+	meta?: string;
+	keyw?: string[];
+	ogType?: "website" | "article";
 };
 
 export type P = Props;
 
-const { title, meta, keyw } = Astro.props;
+const { title, meta, keyw, ogType = "website" } = Astro.props;
+const site = Astro.site;
+const canonicalUrl = new URL(Astro.url.pathname, site || Astro.url).toString();
+const seoTitle = title ? `@stdpi - ${title}` : "i am @stdpi";
+const seoDescription =
+	meta || "random software engineer, or a tech enthusiasts";
+const seoImage = site
+	? new URL(getOgImagePath(Astro.url.pathname), site).toString()
+	: undefined;
 ---
 
 <!doctype html>
@@ -28,16 +38,24 @@ const { title, meta, keyw } = Astro.props;
       rel="stylesheet"
       href="https://cdn.stdpi.work/assets/fonts/departuremono/stylesheet.css"
     />
-    <title>{title ? `@stdpi - ${title}` : "i am @stdpi"}</title>
-    <meta
-      name="description"
-      content={meta || "random software engineer, or a tech enthusiasts"}
-    />
+    <title>{seoTitle}</title>
+    <meta name="description" content={seoDescription} />
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl} />
     <meta
-      name="keyword"
+      name="keywords"
       content={["stdpi huwutao dev".split(" "), ...(keyw || [])].join(", ")}
     />
+    <meta property="og:title" content={seoTitle} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:description" content={seoDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    {seoImage && <meta property="og:image" content={seoImage} />}
+    {seoImage && <meta property="og:image:alt" content={seoTitle} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seoTitle} />
+    <meta name="twitter:description" content={seoDescription} />
+    {seoImage && <meta name="twitter:image" content={seoImage} />}
   </head>
   <body>
     <slot />

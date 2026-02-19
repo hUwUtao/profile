@@ -1,4 +1,4 @@
-import { type StorageProperties, createStorage } from "./lib/create-storage";
+import { createStorage, type StorageProperties } from "./lib/create-storage";
 
 // borrowed from mantine
 

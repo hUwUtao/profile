@@ -2,3 +2,5 @@
 
 User-agent: GPTBot
 Disallow: /
+
+Sitemap: https://stdpi.work/sitemap-index.xml

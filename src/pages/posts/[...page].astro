@@ -1,0 +1,108 @@
+---
+import type { FrontmatterProps } from "../../core/frontmatter";
+import { getOgImagePath } from "../../core/og";
+import Master from "../../layouts/master.astro";
+
+const PAGE_SIZE = 5;
+
+export function getStaticPaths({ paginate }) {
+	const pageSize = 5;
+	const allPosts = Object.values(
+		import.meta.glob<FrontmatterProps>("./*/*.mdx", { eager: true }),
+	);
+	const sortedPosts = allPosts.reverse();
+	return paginate(sortedPosts, {
+		pageSize,
+	});
+}
+
+const { page } = Astro.props;
+const isFirst = page.currentPage === 1;
+const pageTitle = isFirst ? "posts" : `posts - page ${page.currentPage}`;
+const pageMeta = isFirst
+	? "random posts from @stdpi"
+	: `random posts from @stdpi, page ${page.currentPage}`;
+---
+
+<Master
+  page="rand"
+  meta={{
+    title: pageTitle,
+    meta: pageMeta,
+  }}
+>
+  <h1 class="ttl">{pageTitle}</h1>
+  {
+    page.data.map(({ frontmatter: { title, brief }, url }) => (
+      <a href={url} class="post-card">
+        <img
+          src={getOgImagePath(url || "/posts")}
+          alt={`${title} preview`}
+          width="132"
+          height="72"
+          loading="lazy"
+        />
+        <span>
+          <h2>{title}</h2>
+          <span>{brief}</span>
+        </span>
+      </a>
+    ))
+  }
+  <nav class="pager" aria-label="Posts pagination">
+    {page.url.prev && <a href={page.url.prev}>newer</a>}
+    <span>page {page.currentPage} / {page.lastPage}</span>
+    {page.url.next && <a href={page.url.next}>older</a>}
+  </nav>
+  <span class="end">and await for more</span>
+</Master>
+
+<style lang="sass">
+  h1.ttl
+    margin: 1rem 1rem 0
+    text-align: left
+  a.post-card
+    color: #fff
+    text-decoration: none
+    display: flex
+    flex-direction: row
+    align-items: center
+    margin: 1rem
+    padding: 0.5em 1rem
+    border: 1px solid var(--b)
+    margin-bottom: 1.5em
+    --s: #0000
+    --s2: #000f
+    --b: #444
+    box-shadow: 4px 4px 0px 2px var(--s), 0 0 0px 2px var(--s2) inset
+    transition: box-shadow 32ms ease-in-out, background 64ms ease-in-out
+    &:hover
+      background: var(--b)
+      --s: #000f
+      --s2: #0000
+    img
+      width: 132px
+      height: 72px
+      object-fit: cover
+      border: 1px solid #fff6
+      flex-shrink: 0
+    &>*
+      text-align: left
+    &>span
+      margin-left: 1em
+      &>h2
+        margin: 0
+        width: 100%
+  nav.pager
+    display: flex
+    align-items: center
+    justify-content: center
+    gap: 1rem
+    margin: 0 1rem 1rem
+    &>span
+      color: #ddd
+  span.end
+    color: #efefef
+    margin-bottom: 1rem
+    display: inline-block
+</style>

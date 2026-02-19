@@ -89,7 +89,7 @@ export function createStorage<T>(type: StorageType, hookName: string) {
 	}: StorageProperties<T>) {
 		const readStorageValue = useCallback(
 			(skipStorage?: boolean): T => {
-				let storageBlockedOrSkipped;
+				let storageBlockedOrSkipped = false;
 
 				try {
 					storageBlockedOrSkipped =

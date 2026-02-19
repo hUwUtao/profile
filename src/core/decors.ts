@@ -35,7 +35,6 @@ function lazy(
 	}[],
 ) {
 	return new Promise<() => void>((ok, _panic) => {
-		// biome-ignore lint/complexity/noForEach: <explanation>
 		a.forEach((e) => {
 			e.cond && confetti(e.draw).then((b) => ok(b));
 		});

@@ -5,33 +5,36 @@ import Root, { type P } from "./root.astro";
 type Pages = "abt" | "rand";
 
 export interface Props {
-  page: Pages;
-  meta?: P;
+	page: Pages;
+	meta?: P;
 }
 
 function isPg(pg: Pages) {
-  return {
-    "data-up": pg === Astro.props.page ? "yes" : undefined,
-  };
+	return {
+		"data-up": pg === Astro.props.page ? "yes" : undefined,
+	};
 }
 ---
 
 <Root {...Astro.props.meta || {}}>
   <script src="../core/entry.ts"></script>
   <figure class:list={[{ cap: Astro.props.page == "abt" }]}>
-    <ul>
-      <li><a href="/" {...isPg("abt")}>abt</a></li>
-      <li><a href="/posts" {...isPg("rand")}>posts</a></li>
-      <!-- <li>
-        <Toggler client:load transition:persist transition:name="nav_pt" />
-      </li> -->
-    </ul>
-    <slot />
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="/" {...isPg("abt")}>abt</a></li>
+        <li><a href="/posts" {...isPg("rand")}>posts</a></li>
+        <!-- <li>
+          <Toggler client:load transition:persist transition:name="nav_pt" />
+        </li> -->
+      </ul>
+    </nav>
+    <main>
+      <slot />
+    </main>
   </figure>
 </Root>
 
 <style lang="sass">
-  @import ../styles/style.sass
   figure
     font-family: 'Varela Round', sans-serif
     position: relative
@@ -45,12 +48,19 @@ function isPg(pg: Pages) {
     text-align: center
     font-size: 16px
     max-width: 50vw
-    @extend .tint
+    border: 2px solid #fff
+    transition: box-shadow 64ms ease-in-out
+    --a: 10px
+    --b: calc(var(--a) / 2)
+    --c: #0008
+    box-shadow: var(--a) var(--a) 0px 2px var(--c), var(--b) var(--b) 0px 2px var(--c) inset
+    &:hover
+      --a: 15px
     @media (max-width:1280px)
       max-width: 90vw
     &.cap
       max-width: 320px
-    &>ul
+    nav>ul
       display: flex
       justify-content: space-evenly
       padding: 0 10%
